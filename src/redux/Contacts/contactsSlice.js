@@ -1,43 +1,22 @@
-import { createSlice, combineReducers } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import { contactsData } from "components/contactsData";
 
-const initialContacts =
-    [
-        { id: "id-111", name: "Rosie Simpson", number: "459-12-56" },
-        { id: "id-211", name: "Hermione Kline", number: "443-89-12" },
-        { id: "id-311", name: "Eden Clements", number: "645-17-79" },
-        { id: "id-411", name: "Annie Copeland", number: "227-91-26" },
-    ];
-
-
+const initialState = contactsData;
 
 const contactsItemsSlice = createSlice({
     name: "items",
-    initialState:
-        JSON.parse(localStorage.getItem("contacts")) || initialContacts || [],
+    initialState,
     reducers: {
-        handleAddContact: (state, action) => [...state, action.payload],
-        handleRemoveContact: (state, action) => state.filter(contact => contact.id !== action.payload),
+        addContact(state, action) {
+            state.push(action.payload);
+        },
+        deleteTask(state, action) {
+            const index = state.findIndex(contact => contact.id === action.payload);
+            state.splice(index, 1);
+        },
     },
 });
 
+export const { addContact, deleteTask } = contactsItemsSlice.actions;
 
-
-const contactsFilterSlice = createSlice({
-    name: "filter",
-    initialState: "",
-    reducers: {
-        filterContact: (state, action) => action.payload,
-    },
-});
-
-
-
-export const { handleAddContact, handleRemoveContact } = contactsItemsSlice.actions;
-export const { filterContact } = contactsFilterSlice.actions;
-
-const contactsReducer = combineReducers({
-    [contactsItemsSlice.name]: contactsItemsSlice.reducer,
-    [contactsFilterSlice.name]: contactsFilterSlice.reducer,
-});
-
-export default contactsReducer;
+export default contactsItemsSlice.reducer;
