@@ -3,18 +3,17 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { Notify } from "notiflix";
-import { deleteTask } from "../../redux/Contacts/contactsSlice";
+import { handleRemoveContact } from "../../redux/contactSlice";
 
 function ContactListItem({ name, number, id }) {
     const dispatch = useDispatch();
-
-    return (
+return (
         <li className={css.listItem}>
             <span className={css.listItemText}>{name}:</span>
             <span className={css.listItemText}>{number}</span>
             <button className={css.button} type="button" onClick={() =>
                 dispatch(
-                    deleteTask(id),
+                    handleRemoveContact(id),
                     Notify.success("Contact was deleted"),
                 )}>Delete</button>
         </li>

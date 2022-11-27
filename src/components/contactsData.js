@@ -1,4 +1,4 @@
-export const contactsData =
+ export const initialContacts =
     [
         { id: "id-111", name: "Rosie Simpson", number: "459-12-56" },
         { id: "id-211", name: "Hermione Kline", number: "443-89-12" },

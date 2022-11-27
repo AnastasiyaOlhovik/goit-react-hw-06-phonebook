@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { nanoid } from "nanoid";
 import { useDispatch, useSelector } from "react-redux";
 import { Notify } from "notiflix";
-import { addContact } from "../../redux/Contacts/contactsSlice";
+import { handleAddContact } from "../../redux/contactSlice";
 
 
 function FormContact() {
@@ -48,7 +48,7 @@ function FormContact() {
         if (!isValidateForm) return;
 
         dispatch(
-            addContact({ id: nanoid(), name, number }),
+            handleAddContact({ id: nanoid(), name, number }),
             Notify.success("Contact was added to phonebook"),
         );
         const resetForm = () => setForm({ name: "", number: "" });
